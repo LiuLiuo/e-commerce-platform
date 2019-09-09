@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListEnterpriseTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="ItemListForm">
+                <p:panel header="#{bundle.ListItemTitle}">
+
+                    <!--                    <p:dataTable id="datalist" value="#enterpriseController.items}" var="item"
+                                                     selectionMode="single" selection="#enterpriseController.selected}"
+                                                     paginator="true"
+                                                     rowKey="#item.id}"
+                                                     rows="10"
+                                                     rowsPerPageTemplate="10,20,30,40,50"
+                                                     >-->
+                    <p:dataTable id="datalist"  value="#{enterpriseController.getcurEnterprise().transfer_coll_to_list()}"  var="item"
+                                 selectionMode="single" selection="#{itemController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListItemTitle_itemPicPath}"/>
+                            </f:facet>
+                            <h:link outcome="newjsf" >
+                                <h:graphicImage url="#{resource[item.itemPicPath]}"  alt="Image not found"/>
+                            </h:link>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListItemTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListItemTitle_itemName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.itemName}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListItemTitle_stock}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.stock}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListItemTitle_itemPrice}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.itemPrice}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListItemTitle_itemTag}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.itemTag}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListItemTitle_itemSaleNum}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.itemSaleNum}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListItemTitle_enterpriseId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.enterpriseId.enterpriseName}"/>
+                        </p:column>
+
+                        <!--                        <p:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{bundle.ListEnterpriseTitle_id}"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.id}"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{bundle.ListEnterpriseTitle_enterpriseName}"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.enterpriseName}"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{bundle.ListEnterpriseTitle_enterpriseLogoPath}"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.enterpriseLogoPath}"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{bundle.ListEnterpriseTitle_enterpriseAddress}"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.enterpriseAddress}"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{bundle.ListEnterpriseTitle_enterpriseTel}"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.enterpriseTel}"/>
+                                                </p:column>
+                                                <p:column>
+                                                    <f:facet name="header">
+                                                        <h:outputText value="#{bundle.ListEnterpriseTitle_userId}"/>
+                                                    </f:facet>
+                                                    <h:outputText value="#{item.userId}"/>
+                                                </p:column>-->
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{itemController.prepareCreate}" update=":ItemCreateForm" oncomplete="PF('ItemCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ItemViewForm" oncomplete="PF('ItemViewDialog').show()" disabled="#{empty itemController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ItemEditForm" oncomplete="PF('ItemEditDialog').show()" disabled="#{empty itemController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{itemController.destroy}" update=":growl,datalist" disabled="#{empty itemController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+             <ui:include src="Edit.xhtml"/>
+             <ui:include src="View.xhtml"/>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

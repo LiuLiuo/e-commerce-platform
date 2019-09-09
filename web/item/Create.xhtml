@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ItemCreateDlg" widgetVar="ItemCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateItemTitle}">
+            <h:form id="ItemCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{itemController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateItemLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{itemController.selected.id}" title="#{bundle.CreateItemTitle_id}" required="true" requiredMessage="#{bundle.CreateItemRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateItemLabel_stock}" for="stock" />
+                        <p:inputText id="stock" value="#{itemController.selected.stock}" title="#{bundle.CreateItemTitle_stock}" />
+                        <p:outputLabel value="#{bundle.CreateItemLabel_itemName}" for="itemName" />
+                        <p:inputText id="itemName" value="#{itemController.selected.itemName}" title="#{bundle.CreateItemTitle_itemName}" required="true" requiredMessage="#{bundle.CreateItemRequiredMessage_itemName}"/>
+                        <p:outputLabel value="#{bundle.CreateItemLabel_itemPrice}" for="itemPrice" />
+                        <p:inputText id="itemPrice" value="#{itemController.selected.itemPrice}" title="#{bundle.CreateItemTitle_itemPrice}" required="true" requiredMessage="#{bundle.CreateItemRequiredMessage_itemPrice}"/>
+                        <p:outputLabel value="#{bundle.CreateItemLabel_itemPicPath}" for="itemPicPath" />
+                        <p:inputText id="itemPicPath" value="#{itemController.selected.itemPicPath}" title="#{bundle.CreateItemTitle_itemPicPath}" required="true" requiredMessage="#{bundle.CreateItemRequiredMessage_itemPicPath}"/>
+                        <p:outputLabel value="#{bundle.CreateItemLabel_itemTag}" for="itemTag" />
+                        <p:inputText id="itemTag" value="#{itemController.selected.itemTag}" title="#{bundle.CreateItemTitle_itemTag}" required="true" requiredMessage="#{bundle.CreateItemRequiredMessage_itemTag}"/>
+                        <p:outputLabel value="#{bundle.CreateItemLabel_itemSaleNum}" for="itemSaleNum" />
+                        <p:inputText id="itemSaleNum" value="#{itemController.selected.itemSaleNum}" title="#{bundle.CreateItemTitle_itemSaleNum}" />
+                        <p:outputLabel value="#{bundle.CreateItemLabel_enterpriseId}" for="enterpriseId" />
+                        <p:selectOneMenu id="enterpriseId" value="#{itemController.selected.enterpriseId}" required="true" requiredMessage="#{bundle.EditItemRequiredMessage_enterpriseId}">
+                            <f:selectItems value="#{enterpriseController.itemsAvailableSelectOne}"
+                                           var="enterpriseIdItem"
+                                           itemValue="#{enterpriseIdItem}"/>
+                        </p:selectOneMenu>
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{itemController.create}" value="#{bundle.Save}" update="display,:ItemListForm:datalist,:growl" oncomplete="handleSubmit(args,'ItemCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ItemCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
