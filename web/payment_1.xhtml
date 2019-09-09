@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      class="js cssanimations"
+      xmlns:p="http://primefaces.org/ui">
+    <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <title>收银台界面</title>
+        <script type="text/javascript" src="cartshop/protect.js"></script>
+        <!-- 资源引用 -->
+        <link rel="stylesheet" type="text/css" href="paymoney/amazeui.min.css"/>
+        <link rel="stylesheet" type="text/css"  href="paymoney/payment.css"/>
+    </head>
+
+    <body>
+        <div class="pay">
+            <!--主内容开始编辑-->
+            <div class="tr_recharge">
+                <div class="tr_rechtext">
+                    <!-- 资源引用 -->
+                    <p class="te_retit">收银台</p>
+                </div>
+                <!-- 表单跳转 -->
+                <h:form  class="am-form" id="doc-vld-msg" >
+                    <div class="tr_rechbox">
+                        <div class="tr_rechhead">
+                            <!-- 资源引用 -->
+                            <img src="resources/#{userController.current_user.userLogoPath}"></img>
+                            <p>帐号：
+                                <a>#{userController.current_user.name}</a>
+                            </p>
+                            <div class="tr_rechheadcion">
+                                <!-- 资源引用 -->
+                                <img src="paymoney/coin.png" alt=""></img>
+                            </div>
+                        </div>
+                        <div class="tr_rechli am-form-group">
+                            <ul class="ui-choose am-form-group" id="uc_01">
+                                <li>
+                                    <label class="am-radio-inline">
+                                        在线支付
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="am-radio-inline">
+                                        货到付款
+                                    </label>
+                                </li>
+
+                                <li>
+                                    <label class="am-radio-inline">
+                                        朋友代付
+                                    </label>
+                                </li>
+                                <li>
+                                    <label class="am-radio-inline">
+                                        公司转账
+                                    </label>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="tr_rechoth am-form-group">
+
+                        </div>
+                        <div class="tr_rechcho am-form-group">
+                            <span>付款方式：</span>
+                            <label class="am-radio">
+                                <span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span><img src="paymoney/wechatpay.png"></img>
+                            </label>
+                            <label class="am-radio" style="margin-right:30px;">
+                                <span class="am-ucheck-icons"><i class="am-icon-unchecked"></i><i class="am-icon-checked"></i></span><img src="paymoney/zfbpay.png"></img>
+                            </label>
+                        </div>
+                        <div class="tr_rechnum">
+                            <span>应付金额：</span>
+                            <p class="rechnum">#{orderDetailController.money}元</p>
+                        </div>
+                    </div>
+                    <div class="tr_paybox">
+                        <p:commandButton class="tr_pay am-btn" value="确认支付" update="doc-vld-msg" action="#{orderDetailController.updateOrder_State(userController.current_user.id)}"></p:commandButton>
+                        <span style="margin-left: 80px">温馨提示：小心诈骗。</span>
+                        <p:commandButton class="tr_pay am-btn" value="返回" update="doc-vld-msg" action="myorders.xhtml" style="margin-left: 250px"></p:commandButton>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+
+    </body>
+</html>
+
+
+
+
+
+
+

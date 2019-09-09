@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListEnterpriseTitle}"></h:outputText>
+        </ui:define>
+        <link rel="stylesheet" href="//at.alicdn.com/t/font_1382864_pmti414wr18.css"></link>  
+        <ui:define name="header">
+
+            <div class="container">
+                <h:graphicImage value="#{resource['images:logo.png']}"
+                                alt="logo"/>
+                <div class="guide_left" id="guide_left" style="height: 30px;margin-left: 45px;float: left">
+                    <!--<li class="sign_in"><a href="/">注册商家</a></li>-->
+                    <li class="show_items"><a href="show_enterprise_items.xhtml">我的商品</a></li>
+                    <li class="log_out"><a href="template.xhtml" onclick="#{userController.setState(0)}">退出登录</a></li>
+                    <!--                      <li class="log_out"><a href="#enterpriseController.enterprise_log_out()}" onclick="enterpriseController.enterprise_log_out()">退出登录</a></li>-->
+
+                </div>
+<!--                <h:form class="log_out"  style="text-align:right">
+                    <p:commandButton  action="#{userController.setState(0)}" value="退出登录" 
+                                      style="margin-right:10px  "/>
+                </h:form>-->
+                <!--                     <h:form class="log_out">
+                                      <p:commandButton class="log_out" action="#enterpriseController.enterprise_log_out()}" value="退出登录"/>
+                                      </h:form>-->
+                <!--                <h:form class="search">
+                                    <p:commandButton class="search-btn" update="username"  action="/"/>
+                                    <p:inputText  class="searchbox"  id="username" value="#{login_info.username}" required="true" maxlength="20" placeholder="关键字搜索" requiredMessage="请输入关键字"></p:inputText>                       
+                
+                                </h:form>-->
+<!--                <i class="icon-icon_fabu iconfont" id="icon_search">&#xe607;</i>-->
+            </div>
+
+        </ui:define>
+
+
+        <ui:define name="body">
+            <h:outputStylesheet library="css" name="jsfcrud.css"/>
+            <h:form id="ItemListForm">
+                  <!--！！！！需要传参-->
+                  <!--itemController.selected.enterpriseId.enterpriseName-->
+                  <p:panel header="#{userController.current_enterprise.enterpriseName}公司商品详情" style="font-size:16px !important;">
+                    <!--userController.current_enterprise.enterprsieName-->
+                    <p:dataTable id="datalist"  value="#{enterpriseController.getcurItems(userController.current_enterprise.enterpriseName)}"  var="item"
+                                 selectionMode="single" selection="#{itemController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                  rows="7"
+                                 rowsPerPageTemplate="7,14,21,28,35"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton deleteButton editButton"/>
+                        <p:ajax event="rowUnselect" update="createButton deleteButton editButton"/>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListItemTitle_itemPicPath}"/>
+                            </f:facet>
+
+                            <h:graphicImage url="resources/#{item.itemPicPath}"  alt="Image not found" height="120px" width="120px"/>
+
+
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListItemTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListItemTitle_itemName}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.itemName}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListItemTitle_stock}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.stock}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListItemTitle_itemPrice}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.itemPrice}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListItemTitle_itemTag}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.itemTag}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListItemTitle_itemSaleNum}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.itemSaleNum}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListItemTitle_enterpriseId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.enterpriseId.enterpriseName}"/>
+                        </p:column>
+
+                        <f:facet name="footer">                          
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="新建商品" actionListener="#{itemController.prepareCreate}" update=":ItemCreateForm" oncomplete="PF('ItemCreateDialog').show()"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="删除商品" actionListener="#{itemController.destroy}" update=":growl,datalist" disabled="#{empty itemController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="修改商品信息" update=":ItemEditForm" oncomplete="PF('ItemEditDialog').show()" disabled="#{empty itemController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+
+                </p:panel>
+            </h:form>
+
+            <ui:include src="create_enterprise_items.xhtml"/>
+            <ui:include src="edit_enterprise_items.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>
+
+

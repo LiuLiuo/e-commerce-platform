@@ -1,0 +1,159 @@
+.main{
+    background: #f2dede !important;
+    height: 600px !important;
+    background: #cccccc !important;
+}
+.body{
+    height: 550px !important;
+    background: url("images/login_pic.png") no-repeat !important;
+    background-size: 100% 100% !important;
+}
+
+.footer{
+    margin-top: 17px;
+    float:left !important;
+
+}
+.signup{
+    margin-right: 100px !important;
+    float: left !important;
+    margin-left: 60px !important;
+    margin-top: 50px !important;
+    /*margin-top: 120px !important;*/    
+    /*height: 200px !important;*/
+}
+
+.signup-form{
+    height: 500px !important;
+    width: 320px!important;
+    align-content: center !important;
+    margin-left: 30px !important;
+    margin-top: 20px !important;
+    float: left !important;
+
+}
+.signup-panel{
+    height: 430px!important;
+    width: 380px !important;
+    margin-left: 320px !important;
+    margin-top: -10px !important;
+}
+
+.img{
+    margin-left: 110px;
+}
+
+.signup-outputlable{
+    /*alignment-adjust: middle;*/
+    /*alignment-baseline: central;*/
+    align-content:center !important;
+    margin-left: 110px !important;
+    line-height:40px !important; 
+    margin-bottom: 20px !important;
+}
+
+.signup-panelgrid-row{
+    line-height: 50px !important;
+    font-weight:none !important;
+}
+
+.signup-btn{
+    width: 290px !important;
+    height: 30px;
+    margin-top: 5px !important;
+    align-content: center !important;
+    position: inherit !important;
+}
+.ui-messages-error{
+    font-size: 16px;
+}
+
+.signup-msgs{
+    color: #b94a48 !important;
+    background-color: #f2dede !important;
+    vertical-align: bottom !important;
+    font-size:16px !important;
+    position:inherit !important;
+    width: 290px !important;
+}
+
+
+.ui-fileupload-buttonbar{
+    align-content: center;
+    margin-left: 70px;
+}
+.ui-fileupload-content{
+    width:268px !important;
+    height:40px !important;
+}
+
+.ui-fileupload-files{
+    width:270px !important;
+    height:20px !important;
+    margin: 0px !important;
+}
+.ui-fileupload {
+    width: 270px !important;
+    height: 20px !important;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
+
+.fixed-msgs{
+    position: fixed;
+}
+
+.ui-fileupload-start {
+    display: none !important;
+}
+
+.ui-fileupload-progress {
+    display: none !important;
+}
+
+
+.ui-fileupload-content{
+    display:none !important;
+    font-size: 0px;
+}
+
+.ui-fileupload-preview{
+    width:30px;
+    height: 30px;
+}
+
+.ui-fileupload-buttonbar{
+    padding: 0em;
+    align-content: center;
+    /*visibility: hidden !important;*/
+}
+
+
+.ui-fileupload-choose {
+    position: relative;
+    overflow: hidden;
+    height: 20px;
+    font-size: 10px!important;
+    padding: 0px;
+}
+
+.gimg{
+    display: table-row;
+    /*margin-right: 60px;*/
+}
+/*.ui-fileupload-upload {
+    position: relative;
+    overflow: hidden;
+    height: 20px;
+    font-size: 10px!important;
+    padding: 0px;
+}
+
+.ui-fileupload-cancel {
+    position: relative;
+    overflow: hidden;
+    height: 20px;
+    font-size: 10px!important;
+    padding: 0px;
+}*/

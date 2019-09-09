@@ -1,0 +1,83 @@
+.main{
+    background: #f2dede !important;
+    height: 590px !important;
+    background: #cccccc !important;
+}
+
+.header{
+    height: 40px !important;
+}
+.body{
+    height: 550px !important;
+    background: url("images/login_pic.png") no-repeat !important;
+    background-size: 100% 100% !important;
+}
+
+.footer{
+    margin-top: 17px;
+    float:left !important;
+
+}
+
+.login{
+    height: 300px;
+    width: 330px;
+    float: right;
+    margin-right: 120px !important;
+    margin-top: 120px !important;
+
+}
+
+.login-form{
+    height: 300px !important;
+    width: 320px !important;
+    float: right;
+    margin-top: 20px;
+    margin-right: 30px;
+   
+}
+.login-panel{
+    height: 290px!important;
+    width: 320px !important;
+     background: url('images/pic1.jpg')!important;
+    background-size: 120%,100% !important;
+}
+
+.login-outputlable{
+    /*alignment-adjust: middle;*/
+    /*alignment-baseline: central;*/
+    margin-left: 110px !important;
+    line-height:40px !important; 
+}
+
+.login-panelgrid-row{
+    line-height: 50px !important;
+    font-weight:none !important;
+}
+
+.login-btn{
+    width: 290px !important;
+    height: 30px;
+    margin-top: 5px !important;
+    align-content: center !important;
+   
+}
+
+
+.login-msgs{
+    color: #b94a48 !important;
+    background-color: #f2dede !important;
+    vertical-align: bottom !important;
+    font-size:16px !important;
+}
+
+.sign-up-link{
+    position: absolute;
+    left: 900px !important;
+    top: 460px !important;
+}
+
+.gimg{
+    display: table-row;
+}
+

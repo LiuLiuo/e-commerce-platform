@@ -1,0 +1,340 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <h:head>
+        <title><ui:insert name="title">home</ui:insert></title>
+        <h:outputScript library="js" name="home.js"/>
+        <h:outputStylesheet library="css" name="template.css"/>
+    </h:head>
+
+    <h:body>
+        <p:growl id="growl" life="3000" />
+        <link rel="stylesheet" href="//at.alicdn.com/t/font_1382864_5ymby3cg0g.css"></link>  
+        <div class="main">
+            <div id="header" class="header">
+                <ui:insert name="header">
+                    <div class="container">
+                        <h:graphicImage value="#{resource['images:logo.png']}"
+                                        alt="logo"/>
+                        <div class="guide_left" id="guide_left" style="height: 30px;margin-left: 45px;float: left">
+                            <li class="home"><a href="template.xhtml">首页</a></li>                         
+                            <li class="sign_in"><a href="enterprise_signup_1.xhtml"><h:outputText value="注册商家" rendered="#{userController.getis_log_in()==0}"/></a></li>
+                            <i class="icon-icon_fabu iconfont" id="icon_search">&#xe607;</i>
+                            <h:form class="search">
+                                <p:inputText  class="searchbox"  id="username" value="#{itemController.tagName}" required="true" maxlength="20" placeholder="关键字搜索" requiredMessage="请输入关键字"></p:inputText>                       
+                                <p:commandButton class="search-btn" value="搜索"  update="username "  action="Search.xhtml"/>
+                            </h:form>
+
+                        </div>
+                        <div class="guide_right" id="guide_right" style="height: 30px;width:380px;  margin-left: 5px;float: right">
+
+                            <!--*****************登录和个人中心*******************-->
+                            <h:form>
+                                <h:commandLink class="log_out" action="#{userController.setState(0)}">                                     
+                                    <h:outputText style="" value="登出" rendered="#{userController.getis_log_in()==1}" />                                     
+                                </h:commandLink>
+                            </h:form>
+                            <li class="log_in">
+                                <a  href="login.xhtml"><h:outputText value="登录" rendered="#{userController.getis_log_in()==0}"/></a>    
+                                <a  href="personal_center.xhtml"><h:outputText value="个人中心" rendered="#{userController.getis_log_in()==1}"/></a>
+                            </li>
+                            <c:if test="#{userController.getis_log_in()==0}">
+                                <i  class="icon-icon_fabu iconfont" id="icon_login">&#xe606;</i>
+                            </c:if>
+                            <c:if test="#{userController.getis_log_in()==1}">
+                                <i  class="icon-icon_fabu iconfont" id="icon_login">&#xe61d;</i>
+                            </c:if>
+
+                            <!--**************我的订单图标****************-->
+                            <li class="order"> 
+                                <c:if test="#{userController.getis_log_in()==1}">
+                                    <a href="myorders.xhtml"><h:outputText value="我的订单" rendered="#{userController.getis_log_in()==1}"/></a>                                       
+                                </c:if>
+                            </li>
+                            <c:if test="#{userController.getis_log_in()==1}">
+                                <i class="icon-icon_fabu iconfont" id="icon_order">&#xe875;</i>
+                            </c:if>
+
+                            <li class="cart">
+                                <c:if test="#{userController.getis_log_in()==1}">
+                                    <a href="cart.xhtml"> <h:outputText value="购物车" rendered="#{userController.getis_log_in()==1}"/></a>                                  
+                                </c:if>
+                            </li>  
+                            <c:if test="#{userController.getis_log_in()==1}">
+                                <i class="icon-icon_fabu iconfont" id="icon_cart">&#xe61a;</i>
+                            </c:if>
+
+                        </div>
+                    </div>                  
+                </ui:insert>
+            </div>
+
+            <div id="body" class="body">
+                <ui:insert name="body">
+                    <!--< ****************轮播图**************** />-->
+                    <div class="poster">
+                        <div class="banner-group" id="banner-group">
+                            <ul class="banner-ul" id="banner-ul">
+                                <li><a href="#"><img src="resources/images/poster1.jpg" alt=""></img></a></li>
+                                <li><a href="#"><img src="resources/images/poster2.jpg" alt=""></img></a></li>
+                                <li><a href="#"><img src="resources/images/poster3.jpg" alt=""></img></a></li>
+                                <li><a href="#"><img src="resources/images/poster4.jpg" alt=""></img></a></li>
+                            </ul>
+                            <div class="page-control-group">
+                                <ul class="page-control"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--< *******************登录块!*********************** />-->
+
+                    <h:form class="logged_panel" rendered="#{userController.getis_log_in()==1}">
+                        <div class="logo">
+                            <h:graphicImage  value="#{resource[userController.current_user.userLogoPath]}" alt="user_logo"/>      
+                        </div> 
+                        <h:outputText style=" float: left;margin-left: 88px;margin-top: 25px;" 
+                                      value="欢迎#{userController.current_user.name}，您已登录！"/>        
+                        <h:commandButton value="登出"  class="logged-btn" action="#{userController.setState(0)}" />
+                    </h:form>
+
+
+
+                    <div class="login">
+                        <h:form  rendered="#{userController.getis_log_in()==0}" class="login-form">
+                            <p:panel id="panel" class="login-panel">
+                                <p:outputLabel value="密码登录" class="login-outputlable"/>
+
+                                <h:panelGrid columns="3" cellspacing="5" class="login-panelgrid-row" id="login-panelgrid">
+
+                                    <img src="resources/images/head.png" width="20" height="20" alt="head" for="firstname"/>
+
+                                    <p:inputText id="username" value="#{userController.username}" required="true" maxlength="20" placeholder="输入用户名" requiredMessage="请输入用户名">
+                                    </p:inputText>
+                                    <p:message for="username" id="user_msgs" class="login-msgs" display="icon"/>
+                                    <img src="resources/images/password.png" style="float:left;margin-right: 10px;width: 20px;height: 20px"  alt="head" for="firstname"/>
+                                    <p:password id="password" value="#{userController.password}" required="true" maxlength="20" placeholder="输入密码" requiredMessage="请输入密码">
+                                    </p:password>
+                                    <p:message for="password" id="password_msgs" class="login-msgs" display="icon"/>
+                                </h:panelGrid>                                                          
+                                <h:commandButton value="登录"  class="login-btn" action="#{userController.login('/template.xhtml')}" />
+                                <p:messages id="msgs" class="login-msgs" showDetail="false" showIcon="false"/>
+                                <p:link outcome="user_signup" value="用户注册" class="sign-up-link"/>
+
+                            </p:panel>
+                        </h:form>
+                    </div>
+                    <!--< *******************推荐商品!*********************** />-->
+                    <div class="floor">
+                        <h:graphicImage class="tag" value="#{resource['images/pai1.png']}" alt="logo"/>
+                        <div class="item">                       
+                            <h:form>
+                                <h:commandLink action="#{goodParameter.itemDetail(itemController.getFirstflooritem(0).get(0))}">
+                                    <h:graphicImage  value="#{resource[itemController.getFirstflooritem(1).get(0).itemPicPath]}" alt="logo"/>                                     
+                                    <f:param id="id" name="id" value="#{itemController.getFirstflooritem(0).get(0)}"></f:param> 
+                                </h:commandLink>
+                            </h:form>
+                            <p:outputLabel value="#{itemController.getFirstflooritem(0).get(0).itemName}" class="test"  />                              
+                            <p:outputLabel value="  |  价格:" class="test"  />
+                            <p:outputLabel value="#{itemController.getFirstflooritem(0).get(0).itemPrice}" class="test"  />
+                        </div>
+                        <div class="item">
+                            <h:form>
+                                <h:commandLink action="#{goodParameter.itemDetail(itemController.getFirstflooritem(0).get(1))}">
+                                    <h:graphicImage  value="#{resource[itemController.getFirstflooritem(0).get(1).itemPicPath]}" alt="logo"/>                                     
+                                    <f:param id="id" name="id" value="#{itemController.getFirstflooritem(0).get(1)}"></f:param> 
+                                </h:commandLink>
+                            </h:form>
+                            <p:outputLabel value="#{itemController.getFirstflooritem(0).get(1).itemName}" class="test"  />                      
+                            <p:outputLabel value="  |  价格:" class="test"  />
+                            <p:outputLabel value="#{itemController.getFirstflooritem(0).get(1).itemPrice}" class="test"  />
+                        </div>
+                        <div class="item">
+                            <h:form>
+                                <h:commandLink action="#{goodParameter.itemDetail(itemController.getFirstflooritem(0).get(2))}">
+                                    <h:graphicImage  value="#{resource[itemController.getFirstflooritem(0).get(2).itemPicPath]}" alt="logo"/>                                     
+                                    <f:param id="id" name="id" value="#{itemController.getFirstflooritem(0).get(2)}"></f:param> 
+                                </h:commandLink>
+                            </h:form> 
+                            <p:outputLabel value="#{itemController.getFirstflooritem(0).get(2).itemName}" class="test"  />  
+                            <p:outputLabel value="   |  价格:" class="test"  />
+                            <p:outputLabel value="#{itemController.getFirstflooritem(0).get(2).itemPrice}" class="test"  />
+                        </div>
+                        <div class="item">
+                            <h:form>
+                                <h:commandLink action="#{goodParameter.itemDetail(itemController.getFirstflooritem(0).get(3))}">
+                                    <h:graphicImage  value="#{resource[itemController.getFirstflooritem(0).get(3).itemPicPath]}" alt="logo"/>                                     
+                                    <f:param id="id" name="id" value="#{itemController.getFirstflooritem(0).get(3)}"></f:param> 
+                                </h:commandLink>
+                            </h:form>  
+                            <p:outputLabel value="#{itemController.getFirstflooritem(0).get(3).itemName}" class="test"  />        
+                            <p:outputLabel value="   |   价格:" class="test"  />
+                            <p:outputLabel value="#{itemController.getFirstflooritem(0).get(3).itemPrice}" class="test"  />
+                        </div>
+                        <div class="item">
+                            <h:form>
+                                <h:commandLink action="#{goodParameter.itemDetail(itemController.getFirstflooritem(0).get(4))}">
+                                    <h:graphicImage  value="#{resource[itemController.getFirstflooritem(0).get(4).itemPicPath]}" alt="logo"/>                                     
+                                    <f:param id="id" name="id" value="#{itemController.getFirstflooritem(0).get(4)}"></f:param> 
+                                </h:commandLink>
+                            </h:form> 
+                            <p:outputLabel value="#{itemController.getFirstflooritem(0).get(4).itemName}" class="test"  />
+                            <br/>   
+                            <p:outputLabel value="   |   价格:" class="test"  />
+                            <p:outputLabel value="#{itemController.getFirstflooritem(0).get(4).itemPrice}" class="test"  />
+                        </div>
+                    </div>
+                    <div class="floor">
+                        <h:graphicImage class="tag" value="#{resource['images:pai2.png']}" alt="logo"/>
+                        <div class="item">
+                            <h:form>
+                                <h:commandLink action="#{goodParameter.itemDetail(itemController.getSecondflooritem(0).get(0))}">
+                                    <h:graphicImage  value="#{resource[itemController.getSecondflooritem(1).get(0).itemPicPath]}" alt="logo"/>                                     
+                                    <f:param id="id" name="id" value="#{itemController.getSecondflooritem(0).get(0)}"></f:param> 
+                                </h:commandLink>
+                            </h:form>  
+                            <p:outputLabel value="#{itemController.getSecondflooritem(0).get(0).itemName}" class="test"  />
+                            <br/>   
+                            <p:outputLabel value="   |   价格:" class="test"  />
+                            <p:outputLabel value="#{itemController.getSecondflooritem(0).get(0).itemPrice}" class="test"  />
+                        </div>
+                        <div class="item">
+                            <h:form>
+                                <h:commandLink action="#{goodParameter.itemDetail(itemController.getSecondflooritem(0).get(1))}">
+                                    <h:graphicImage  value="#{resource[itemController.getSecondflooritem(0).get(1).itemPicPath]}" alt="logo"/>                                     
+                                    <f:param id="id" name="id" value="#{itemController.getSecondflooritem(0).get(1)}"></f:param> 
+                                </h:commandLink>
+                            </h:form>  
+                            <p:outputLabel value="#{itemController.getSecondflooritem(0).get(1).itemName}" class="test"  />
+                            <br/>   
+                            <p:outputLabel value="   |   价格:" class="test"  />
+                            <p:outputLabel value="#{itemController.getSecondflooritem(0).get(1).itemPrice}" class="test"  />
+                        </div>
+                        <div class="item">
+                            <h:form>
+                                <h:commandLink action="#{goodParameter.itemDetail(itemController.getSecondflooritem(0).get(2))}">
+                                    <h:graphicImage  value="#{resource[itemController.getSecondflooritem(0).get(2).itemPicPath]}" alt="logo"/>                                     
+                                    <f:param id="id" name="id" value="#{itemController.getSecondflooritem(0).get(2)}"></f:param> 
+                                </h:commandLink>
+                            </h:form>    
+                            <p:outputLabel value="#{itemController.getSecondflooritem(0).get(2).itemName}" class="test"  />
+                            <br/>   
+                            <p:outputLabel value="   |   价格:" class="test"  />
+                            <p:outputLabel value="#{itemController.getSecondflooritem(0).get(2).itemPrice}" class="test"  />
+                        </div>
+                        <div class="item">
+                            <h:form>
+                                <h:commandLink action="#{goodParameter.itemDetail(itemController.getSecondflooritem(0).get(3))}">
+                                    <h:graphicImage  value="#{resource[itemController.getSecondflooritem(0).get(3).itemPicPath]}" alt="logo"/>                                     
+                                    <f:param id="id" name="id" value="#{itemController.getSecondflooritem(0).get(3)}"></f:param> 
+                                </h:commandLink>
+                            </h:form>                                
+                            <p:outputLabel value="#{itemController.getSecondflooritem(0).get(3).itemName}" class="test"  />
+                            <br/>   
+                            <p:outputLabel value="   |   价格:" class="test"  />
+                            <p:outputLabel value="#{itemController.getSecondflooritem(0).get(3).itemPrice}" class="test"  />
+                        </div>
+                        <div class="item">
+                            <h:form>
+                                <h:commandLink action="#{goodParameter.itemDetail(itemController.getSecondflooritem(0).get(4))}">
+                                    <h:graphicImage  value="#{resource[itemController.getSecondflooritem(0).get(4).itemPicPath]}" alt="logo"/>                                     
+                                    <f:param id="id" name="id" value="#{itemController.getSecondflooritem(0).get(4)}"></f:param> 
+                                </h:commandLink>
+                            </h:form> 
+                            <p:outputLabel value="#{itemController.getSecondflooritem(0).get(4).itemName}" class="test"  />
+                            <br/>   
+                            <p:outputLabel value="   |   价格:" class="test"  />
+                            <p:outputLabel value="#{itemController.getSecondflooritem(0).get(4).itemPrice}" class="test"  />
+                        </div>
+                    </div>
+                    <div class="floor">
+                        <h:graphicImage class="tag" value="#{resource['images:pai3.png']}" alt="logo"/>
+                        <div class="item">
+                            <h:form>
+                                <h:commandLink action="#{goodParameter.itemDetail(itemController.getThirdflooritem(0).get(0))}">
+                                    <h:graphicImage  value="#{resource[itemController.getThirdflooritem(1).get(0).itemPicPath]}" alt="logo"/>                                     
+                                    <f:param id="id" name="id" value="#{itemController.getThirdflooritem(0).get(0)}"></f:param> 
+                                </h:commandLink>
+                            </h:form>    
+                            <p:outputLabel value="#{itemController.getThirdflooritem(0).get(0).itemName}" class="test"  />
+                            <br/>   
+                            <p:outputLabel value="   |   价格:" class="test"  />
+                            <p:outputLabel value="#{itemController.getThirdflooritem(0).get(0).itemPrice}" class="test"  />
+                        </div>
+                        <div class="item">
+                            <h:form>
+                                <h:commandLink action="#{goodParameter.itemDetail(itemController.getThirdflooritem(0).get(1))}">
+                                    <h:graphicImage  value="#{resource[itemController.getThirdflooritem(0).get(1).itemPicPath]}" alt="logo"/>                                     
+                                    <f:param id="id" name="id" value="#{itemController.getThirdflooritem(0).get(1)}"></f:param> 
+                                </h:commandLink>
+                            </h:form>    
+                            <p:outputLabel value="#{itemController.getThirdflooritem(0).get(1).itemName}" class="test"  />
+                            <br/>   
+                            <p:outputLabel value="   |   价格:" class="test"  />
+                            <p:outputLabel value="#{itemController.getThirdflooritem(0).get(1).itemPrice}" class="test"  />
+                        </div>
+                        <div class="item">
+                            <h:form>
+                                <h:commandLink action="#{goodParameter.itemDetail(itemController.getThirdflooritem(0).get(2))}">
+                                    <h:graphicImage  value="#{resource[itemController.getThirdflooritem(0).get(2).itemPicPath]}" alt="logo"/>                                     
+                                    <f:param id="id" name="id" value="#{itemController.getThirdflooritem(0).get(2)}"></f:param> 
+                                </h:commandLink>
+                            </h:form>   
+                            <p:outputLabel value="#{itemController.getThirdflooritem(0).get(2).itemName}" class="test"  />
+                            <br/>   
+                            <p:outputLabel value="   |   价格:" class="test"  />
+                            <p:outputLabel value="#{itemController.getThirdflooritem(0).get(2).itemPrice}" class="test"  />
+                        </div>
+                        <div class="item">
+                            <h:form>
+                                <h:commandLink action="#{goodParameter.itemDetail(itemController.getThirdflooritem(0).get(3))}">
+                                    <h:graphicImage  value="#{resource[itemController.getThirdflooritem(0).get(3).itemPicPath]}" alt="logo"/>                                     
+                                    <f:param id="id" name="id" value="#{itemController.getThirdflooritem(0).get(3)}"></f:param> 
+                                </h:commandLink>
+                            </h:form> 
+                            <p:outputLabel value="#{itemController.getThirdflooritem(0).get(3).itemName}" class="test"  />
+                            <br/>   
+                            <p:outputLabel value="   |   价格:" class="test"  />
+                            <p:outputLabel value="#{itemController.getThirdflooritem(0).get(3).itemPrice}" class="test"  />
+                        </div>
+                        <div class="item">
+                            <h:form>
+                                <h:commandLink action="#{goodParameter.itemDetail(itemController.getThirdflooritem(0).get(4))}">
+                                    <h:graphicImage  value="#{resource[itemController.getThirdflooritem(0).get(4).itemPicPath]}" alt="logo"/>                                     
+                                    <f:param id="id" name="id" value="#{itemController.getThirdflooritem(0).get(4)}"></f:param> 
+                                </h:commandLink>
+                            </h:form>     
+                            <p:outputLabel value="#{itemController.getThirdflooritem(0).get(4).itemName}" class="test"  />
+                            <br/>   
+                            <p:outputLabel value="   |   价格:" class="test"  />
+                            <p:outputLabel value="#{itemController.getThirdflooritem(0).get(4).itemPrice}" class="test"  />
+                        </div>
+                    </div>
+                </ui:insert>     
+            </div>  
+
+            <div id="footer" class="footer">
+                <ui:insert name="footer">
+                    <div class="detail-group">
+                        <div class="line1">  
+                            <li><a href="#">关于我们</a></li>
+                            <li class="haschild">
+                                <a href="#" class="link">联系我们</a>
+                                <div class="showdetail biglist">
+                                    <h:graphicImage  value="#{resource['images:erweima.jpg']}" alt="logo"/>         
+                                </div>
+                            </li>
+                        </div>
+
+                    </div>
+                </ui:insert>     
+            </div>  
+
+        </div>  
+
+    </h:body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Log in</title>
+                <h:outputStylesheet library="css" name="login_style.css"/>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+            <ui:composition template="template.xhtml">
+                <ui:define name="body">
+                    <div class="login">
+                        <ui:insert name = "login" >
+                            <h:form class="login-form">
+                                <p:panel id="panel" class="login-panel">
+
+
+                                    <p:outputLabel value="密码登录" class="login-outputlable"/>
+
+                                    <h:panelGrid columns="3" cellspacing="5" class="login-panelgrid-row" id="login-panelgrid">
+                                        <p:graphicImage url="resources/images/head.jpg" width="30" height="30" class="gimg"/>
+                                        <p:inputText id="username" value="#{userController.username}" required="true" maxlength="20" placeholder="输入用户名" requiredMessage="请输入用户名">
+                                        </p:inputText>
+                                        <p:message for="username" id="user_msgs" class="login-msgs" display="icon"/>
+
+                                        <img src="resources/images/head.jpg" width="30" height="30" alt="head" for="firstname" class="gimg"/>
+                                        <p:password id="password" value="#{userController.password}" required="true" maxlength="20" placeholder="输入密码" requiredMessage="请输入密码">
+                                        </p:password>
+                                        <p:message for="password" id="password_msgs" class="login-msgs" display="icon"/>
+                                    </h:panelGrid>
+
+                                    <p:commandButton value="登录" update="login-panelgrid msgs" class="login-btn" action="#{userController.login('/login.xhtml')}" />
+
+                                    <p:messages id="msgs" class="login-msgs" showDetail="false" showIcon="false"/>
+                                    <p:link outcome="user_signup" value="用户注册" class="sign-up-link"/>
+
+                                </p:panel>
+                            </h:form>
+                        </ui:insert>
+
+                    </div>
+                </ui:define>
+            </ui:composition>
+        </h:body>
+
+    </f:view>
+</html>
+

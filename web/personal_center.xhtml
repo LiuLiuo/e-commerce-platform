@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <head>
+        <title>个人中心</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    </head>
+    <body>
+        <ui:composition template="template.xhtml">
+            <ui:define name="body">
+                <h:outputStylesheet library="css" name="personal_center.css"/>
+                <div class="first_bar">
+                    <div class="modify_logo">
+                        <div class="user_logo">
+                            <p:graphicImage alt="" url="#{resource[userController.current_user.userLogoPath]}" class="im" height="120" width="120" id="gimg" />   
+
+                            <p:dialog header="Basic Dialog" widgetVar="dlg1" minHeight="40">
+                                <h:form>
+                                    <p:graphicImage alt="" url="/resources/images/temp/#{userController.picturePath}" class="img" height="120" width="120" id="gimg" />                                                                              
+                                    <p:fileUpload  class="file_upload" fileUploadListener="#{userController.handleFileUpload}" allowTypes="/(\.|\/)(jpe?g|png)$/" mode="advanced" 
+                                                   required="true" auto="true" requiredMessage="请选择图片！" label="选择" id="fileuploader" update="gimg" fileLimit="10000"/>     
+                                </h:form>
+                                <h:form>  
+                                    <h:commandButton  value="确定"  class="cancel-btn" action="#{userController.fileUpdate()}" onclick="ItemCreateDialog.hide()"  />
+                                </h:form>
+                            </p:dialog>
+                            <h:form>
+                                <p:commandButton class="show_dlg1" value="编辑头像"  type="logo_edit" onclick="PF('dlg1').show();" />     
+                            </h:form>
+
+                        </div> 
+
+                        <p:dialog header="Basic Dialog" widgetVar="dlg2" minHeight="40">
+                            <h:form id="UserEditForm">
+                                <h:panelGroup id="display">
+                                    <p:panelGrid columns="2"  id="itemgrid">
+                                        <p:outputLabel value="昵称" for="nickName" />
+                                        <p:inputText id="nickName" value="#{userController.userNickName}" title="#{bundle.CreateItemTitle_itemName}" required="true" requiredMessage="#{bundle.CreateItemRequiredMessage_itemName}"/>
+                                        <p:outputLabel value="收获地址" for="userAddress" />
+                                        <p:inputText id="userAddress" value="#{userController.userAddress}" title="#{bundle.CreateItemTitle_stock}" /> 
+                                        <p:commandButton action="#{userController.edit_user()}" value="#{bundle.Save}" onclick="ItemCreateDialog.hide()"  />
+                                    </p:panelGrid>
+                                </h:panelGroup>
+                            </h:form> 
+                        </p:dialog>
+
+                        <div class="edit_info">
+                            <h:form  style="height: 200px;">
+                                <h:panelGroup class="show_info">
+                                    <h:outputText class="info" value="昵称:  " />
+                                    <h:outputText class="info" value="#{userController.current_user.userNickname}" />
+                                    <br/>
+                                    <h:outputText class="info" value="收货地址:  " />
+                                    <h:outputText class="info" value="#{userController.current_user.userAddress}" />
+                                </h:panelGroup>                  
+                                <p:commandButton class="editButton"   value="修改用户信息" onclick="PF('dlg2').show();"/>
+                            </h:form>
+                        </div>
+
+                        <div class="state_box">
+                            <h:form>
+                                <h:commandLink action="#{orderDetailController.setState('未支付',userController.current_user)}">
+                                    <div class="state">
+                                        <h:graphicImage  value="#{resource['images:daifukuan.png']}" alt="logo"/>      
+                                        <f:param id="id" name="id" value=""></f:param> 
+                                    </div>    
+                                </h:commandLink>
+                            </h:form>
+
+
+                            <h:form>
+                                <h:commandLink action="#{orderDetailController.setState('已支付',userController.current_user)}">
+                                    <div class="state">
+                                        <h:graphicImage  value="#{resource['images:daifahuo.png']}" alt="logo"/>      
+                                        <f:param id="id" name="id" value=""></f:param> 
+                                    </div>    
+                                </h:commandLink>
+                            </h:form>
+
+                            <h:form>
+                                <h:commandLink action="#{orderDetailController.findAllOrder()}">
+                                    <div class="state">
+                                        <h:graphicImage  value="#{resource['images:daifahuo.png']}" alt="logo"/>      
+                                    </div>    
+                                </h:commandLink>
+                            </h:form>
+                            <div class="text-bar">
+                                <span class="state_text">待付款</span>
+                                <span class="state_text">已付款</span>
+                                <span class="state_text">所有订单</span>
+                            </div>                       
+                        </div>
+                    </div>
+                    <div class="data_form">
+
+                        <h:form id="OrderDetailListForm">
+                            <p:panel header="#{bundle.ListOrderDetailTitle}">
+                                <p:dataTable id="datalist" value="#{orderDetailController.payedOrder}" var="item"
+                                             selectionMode="single"
+                                             paginator="true"
+                                             rowKey="#{item.id}"
+                                             rows="10"
+                                             rowsPerPageTemplate="10,20,30"
+                                             >
+
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListOrderDetailTitle_orderTime}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.orderTime}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListOrderDetailTitle_orderItemNum}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.orderItemNum}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListOrderDetailTitle_id}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.id}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListOrderDetailTitle_itemId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.itemId}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListOrderDetailTitle_userId}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.userId}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListOrderDetailTitle_OrderSumPrice}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.orderSumPrice}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListOrderDetailTitle_OrderState}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.orderState}"/>
+                                    </p:column>
+
+                                </p:dataTable>
+                            </p:panel>
+                        </h:form>
+                    </div>
+
+                </div>
+            </ui:define>
+        </ui:composition>
+
+
+    </body>
+</html>

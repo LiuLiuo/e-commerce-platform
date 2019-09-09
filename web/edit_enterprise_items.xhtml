@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ItemEditDlg" widgetVar="ItemEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditItemTitle}">
+            <h:form>
+                <p:fileUpload fileUploadListener="#{itemController.handleFileUpload}" allowTypes="/(\.|\/)(jpe?g|png)$/" mode="advanced" 
+                              required="true" auto="true" requiredMessage="请选择图片！" label="导入产品图片" id="fileuploader" update="gimg" fileLimit="10000"
+                              />
+                <br/>
+                <p:graphicImage  alt="预览图片" url="/resources/images/temp/#{itemController.tempPath}"  height="80" width="80" id="gimg" />
+            </h:form>
+            <h:form id="ItemEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{itemController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditItemLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{itemController.selected.id}" title="#{bundle.EditItemTitle_id}" required="true" requiredMessage="#{bundle.EditItemRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditItemLabel_stock}" for="stock" />
+                        <p:inputText id="stock" value="#{itemController.selected.stock}" title="#{bundle.EditItemTitle_stock}" />
+                        <p:outputLabel value="#{bundle.EditItemLabel_itemName}" for="itemName" />
+                        <p:inputText id="itemName" value="#{itemController.selected.itemName}" title="#{bundle.EditItemTitle_itemName}" required="true" requiredMessage="#{bundle.EditItemRequiredMessage_itemName}"/>
+                        <p:outputLabel value="#{bundle.EditItemLabel_itemPrice}" for="itemPrice" />
+                        <p:inputText id="itemPrice" value="#{itemController.selected.itemPrice}" title="#{bundle.EditItemTitle_itemPrice}" required="true" requiredMessage="#{bundle.EditItemRequiredMessage_itemPrice}"/>
+                        <p:outputLabel value="#{bundle.EditItemLabel_itemTag}" for="itemTag" />
+                        <p:inputText id="itemTag" value="#{itemController.selected.itemTag}" title="#{bundle.EditItemTitle_itemTag}" required="true" requiredMessage="#{bundle.EditItemRequiredMessage_itemTag}"/>
+                        <p:outputLabel value="#{bundle.EditItemLabel_itemSaleNum}" for="itemSaleNum" />
+                        <p:inputText id="itemSaleNum" value="#{itemController.selected.itemSaleNum}" title="#{bundle.EditItemTitle_itemSaleNum}" />
+                        <p:outputLabel value="#{bundle.EditItemLabel_enterpriseId}" for="enterpriseId" >
+<!--                        <p:selectOneMenu id="enterpriseId" value="#{itemController.selected.enterpriseId}" required="true" requiredMessage="#{bundle.EditItemRequiredMessage_enterpriseId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{enterpriseController.itemsAvailableSelectOne}"
+                                           var="enterpriseIdItem"
+                                           itemValue="#{enterpriseIdItem}"/>
+                        </p:selectOneMenu>-->
+                       
+                        </p:outputLabel >
+                         <h:outputText id="enterpriseId" value="#{itemController.selected.enterpriseId.enterpriseName}" title="#{bundle.EditItemTitle_itemSaleNum}" />
+                    </p:panelGrid>
+                    <p:commandButton  action="#{itemController.edit_item(itemController.selected,itemController.tempPath)}" value="#{bundle.Save}" update="display,:ItemListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ItemEditDialog');"  onclick="ItemEditDialog.hide()"/>
+                         
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ItemEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

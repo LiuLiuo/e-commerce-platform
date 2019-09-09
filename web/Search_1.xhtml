@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <style type="text/css">
+        .ui-g div {
+            background-color: #ededed;
+            text-align: center;
+            border: 1px solid #fafafa;
+        }
+    </style>
+    <h:head>
+        <meta charset="UTF-8"></meta>
+        <title>商品搜索</title>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="template.xhtml">        
+            <ui:define name="body">
+                <h:outputStylesheet library="css" name="jsfcrud.css"/>
+                <h:form id="ItemListForm">
+                    <p:panel header="购物车" style="font-size: 18px !important;">
+                        <p:dataTable value="#{itemController.tag1}" var="item"
+                                      selectionMode="single" selection="#{itemController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.id}"
+                                     style="padding-left: 50px; padding-right: 50px;text-align:center;line-height: 60px"
+                                     rows="7"
+                                     rowsPerPageTemplate="7,14,21,28,35">
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListItemTitle_itemPicPath}"/>
+                                </f:facet>
+                                <a class="smallimg">
+                                    <h:form>
+                                        <h:commandLink action="#{goodParameter.itemDetail(item)}">
+                                            <h:graphicImage url="#{resource[item.itemPicPath]}"  alt="Image not found" style="width: 70px;height: 70px"/>                               
+                                            <f:param id="id" name="id" value="#{item}"></f:param> 
+                                        </h:commandLink>
+                                    </h:form>
+                                </a>
+
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListItemTitle_itemName}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.itemName}"/>
+                            </p:column>
+
+
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListItemTitle_stock}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.stock}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListItemTitle_itemPrice}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.itemPrice}"/>
+                            </p:column>
+
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListItemTitle_itemTag}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.itemTag}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListItemTitle_itemSaleNum}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.itemSaleNum}"/>
+                            </p:column>
+
+
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

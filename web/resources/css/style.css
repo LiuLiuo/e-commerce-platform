@@ -1,0 +1,16 @@
+.data {
+	font-size: 14px
+}
+.header {
+	text-align: left;
+	font-size: 14px
+}
+.field {
+	width: 20px;
+	font-size: 13px;
+}
+.image{width: 70px;height: 70px}
+/*.column1 { width: 200px;height: 100px }
+.column2 { width: 200px;height: 100px }
+.column3 { width: 200px;height: 100px }
+.column4 { width: 200px;height: 100px }*/

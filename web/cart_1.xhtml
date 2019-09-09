@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="购物车" ></h:outputText>
+        </ui:define>
+        <link rel="stylesheet" href="//at.alicdn.com/t/font_1382864_pmti414wr18.css"></link>  
+        <ui:define name="header">
+            <div class="container">
+                <h:graphicImage value="#{resource['images:logo.png']}"
+                                alt="logo"/>
+                <div class="guide_left" id="guide_left" style="height: 30px;margin-left: 45px;float: left">
+                    <li class="home"><a href="template.xhtml">首页</a></li>                         
+                    <li class="sign_in"><a href="enterprise_signup_1.xhtml"><h:outputText value="注册商家" rendered="#{userController.getis_log_in()==0}"/></a></li>
+
+                </div>
+                <div class="guide_right" id="guide_right" style="height: 30px;width:380px;  margin-left: 5px;float: right">
+
+                    <!--*****************登录和个人中心*******************-->
+                    <h:form>
+                        <h:commandLink class="log_out" action="#{userController.setState(0)}">                                     
+                            <h:outputText style="" value="登出" rendered="#{userController.getis_log_in()==1}" />                                     
+                        </h:commandLink>
+                    </h:form>
+                    <li class="log_in">
+                        <a  href="login.xhtml"><h:outputText value="登录" rendered="#{userController.getis_log_in()==0}"/></a>    
+                        <a  href="personal_center.xhtml"><h:outputText value="个人中心" rendered="#{userController.getis_log_in()==1}"/></a>
+                    </li>
+                    <c:if test="#{userController.getis_log_in()==0}">
+                        <i  class="icon-icon_fabu iconfont" id="icon_login">&#xe606;</i>
+                    </c:if>
+                    <c:if test="#{userController.getis_log_in()==1}">
+                        <i  class="icon-icon_fabu iconfont" id="icon_login">&#xe61d;</i>
+                    </c:if>
+
+                    <!--**************我的订单图标****************-->
+                    <li class="order"> 
+                        <c:if test="#{userController.getis_log_in()==1}">
+                            <a href="myorders.xhtml"><h:outputText value="我的订单" rendered="#{userController.getis_log_in()==1}"/></a>                                       
+                        </c:if>
+                    </li>
+                    <c:if test="#{userController.getis_log_in()==1}">
+                        <i class="icon-icon_fabu iconfont" id="icon_order">&#xe875;</i>
+                    </c:if>
+
+                    <li class="cart">
+                        <c:if test="#{userController.getis_log_in()==1}">
+                            <a href="cart.xhtml"> <h:outputText value="购物车" rendered="#{userController.getis_log_in()==1}"/></a>                                  
+                        </c:if>
+                    </li>  
+                    <c:if test="#{userController.getis_log_in()==1}">
+                        <i class="icon-icon_fabu iconfont" id="icon_cart">&#xe61a;</i>
+                    </c:if>
+                </div>
+            </div>    
+
+        </ui:define>
+        <ui:define name="body">
+            <h:outputStylesheet library="css" name="jsfcrud.css"/>
+            <h:form id="ItemListForm">
+                <p:panel header="购物车" style="font-size: 18px !important;">
+                    <p:dataTable id="datalist"  value="#{cartController.user_curCarts(userController.current_user.id)}"  var="cart"
+                                 selectionMode="single" selection="#{cartController.selected}"
+                                 rowKey="#{cart.id}"
+                                 style="padding-left: 50px; padding-right: 50px;text-align:center;line-height: 60px"
+                                 rows="7"
+                                 rowsPerPageTemplate="7,14,21,28,35"
+                                 >
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="商品图片"/>
+                            </f:facet>
+                            <h:graphicImage url="#{resource[cart.itemId.itemPicPath]}" 
+                                            alt="图片路径出错" style="width: 70px;height: 70px"/>
+
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="商品名"/>
+                            </f:facet>
+                            <h:outputText value="#{cart.itemId.itemName}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="店铺名"/>
+                            </f:facet>
+                            <h:outputText value="#{cart.itemId.enterpriseId.enterpriseName}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="单价"/>
+                            </f:facet>
+                            <h:outputText value="#{cart.itemId.itemPrice}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="数量"/>
+                            </f:facet>
+                            <h:outputText value="#{cart.cartItemNum}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="总价"/>
+                            </f:facet>
+                            <h:outputText value="#{goodParameter.money}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="操作"/>
+                            </f:facet>
+                            <p:commandButton value="删除商品" action="#{cartController.removeCart1(cart)}"></p:commandButton>
+                        </p:column>
+
+                        <f:facet name="footer">                          
+
+                            <h:commandButton value="结算" action="#{orderDetailController.createODItem(userController.current_user.id)}"></h:commandButton>
+                        </f:facet>
+
+                    </p:dataTable>
+
+                </p:panel>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>

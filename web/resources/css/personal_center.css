@@ -1,0 +1,177 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2019-9-6, 15:22:57
+    Author     : 67506
+*/
+.first_bar{
+    height: 300px;
+    width: 1000px;
+    background-color: rgba(252,191,73,0.8);
+    float: left;
+    margin-left: 60px;
+    margin-top: 30px;
+}
+.modify_logo{
+    height: 250px;
+    width: 450px;
+    float: left;
+    margin-left: 60px;
+    margin-top: 25px;
+}
+.user_logo{
+    float: left;
+    height: 250px;
+    width: 210px;
+}
+.user_logo img{
+    float: left;
+    height: 200px;
+    width: 200px;
+    border-radius:100px;
+    border:none;
+}
+.user_nickname{
+    float:left;
+    margin-left: 30px;
+    margin-top: 50px;
+    height: 20px;
+    width: 150px;
+    background-color: white;
+}
+/*订单状态栏*/
+.state_box{
+    height: 200px;
+    width: 450px;
+    margin-left: 520px;
+    margin-top: 30px;
+}
+.state{
+    float: left;
+    margin-left: 22px;
+    margin-top: 50px;
+    background-color: white;
+    width:80px;
+    height:80px;
+    border-radius:50px;
+    border: none;
+
+}
+.state img{
+    margin-left: 10px;
+    margin-top: 10px;
+    height: 60px;
+    width: 60px
+}
+.text-bar{
+    float:left;
+    width: 350px;
+    height: 30px;
+    margin-left: 35px;
+}
+.state_text{
+    text-decoration: none;
+    float:left;
+    margin-right : 53px;
+    margin-top: 20px;
+    font-size: large;
+    color: white;
+}
+
+.ui-fileupload-content{
+    display: none;
+}
+
+.file_upload{
+    float:left;
+    margin-left: 23px;
+    margin-top: 10px;
+    height: 20px;
+    width:60px;
+}
+.ui-fileupload-buttonbar{
+    height: 20px;
+    width:60px;
+}
+.ui-fileupload-choose{
+    height: 20px;
+    width:60px;
+}
+.signup-btn{
+    float: left;
+    margin-left: 20px;
+    margin-top: 10px;
+    height: 30px;
+    width:40px;
+}
+.logo_edit{
+    float: left;
+    margin-top: 10px;
+    margin-left: 20px;
+    height: 30px;
+    width:40px;
+}
+.cancel-btn{
+    float: left;
+    margin-top: 10px;
+    height: 30px;
+    width:40px;
+}
+.pi-check{
+    display: none;
+}
+.ui-c{
+    padding: 0!important;
+    font-size: 15px;
+    font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+}
+.ui-icon-plusthick{
+    display:none;
+}
+
+
+.show_dlg1{
+    float: left;
+    margin-left: 70px;
+    margin-top: 12px;
+}
+
+#display{
+    float:left;
+    margin-left:30px; 
+}
+.editButton{
+    position: relative;
+    left:40px;
+    top:140px;
+
+}
+.edit_info{
+    float:left;
+    height: 250px;
+    width: 190px;
+    margin-left: 20px;
+    background:  url('images/pic1.jpg');
+    background-size: 110% 100%;
+    border-radius: 20px;
+   
+}
+.show_info{
+    float:left;
+    margin-top: 10px;
+}
+.info{
+    font-size: 16px;
+    line-height: 25px;
+    margin-left: 20px;
+}
+
+.data_form{
+    height: 300px;
+    width: 1000px;
+    float: left;
+    margin-top: 30px;   
+}

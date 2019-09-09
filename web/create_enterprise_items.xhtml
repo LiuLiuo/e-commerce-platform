@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition>
+        <p:dialog id="ItemCreateDlg" widgetVar="ItemCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateItemTitle}">
+            <h:form>
+                <p:fileUpload fileUploadListener="#{itemController.handleFileUpload}" allowTypes="/(\.|\/)(jpe?g|png)$/" mode="advanced" 
+                              required="true" auto="true" requiredMessage="请选择图片！" label="导入产品图片" id="fileuploader" update="gimg" fileLimit="10000"
+                              />
+                <br/>
+                <p:graphicImage  alt="预览图片" url="/resources/images/temp/#{itemController.tempPath}"  height="80" width="80" id="gimg" />
+            </h:form>
+            <h:form id="ItemCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{itemController.selected != null}" id="itemgrid">
+                        <p:outputLabel value="#{bundle.CreateItemLabel_itemName}" for="itemName" />
+                        <p:inputText id="itemName" value="#{itemController.itemName}" title="#{bundle.CreateItemTitle_itemName}" required="true" requiredMessage="#{bundle.CreateItemRequiredMessage_itemName}"/>
+                        <p:outputLabel value="#{bundle.CreateItemLabel_stock}" for="stock" />
+                        <p:inputText id="stock" value="#{itemController.stock}" title="#{bundle.CreateItemTitle_stock}" />
+                        <p:outputLabel value="#{bundle.CreateItemLabel_itemPrice}" for="itemPrice" />
+                        <p:inputText id="itemPrice" value="#{itemController.itemPrice}" title="#{bundle.CreateItemTitle_itemPrice}" required="true" requiredMessage="#{bundle.CreateItemRequiredMessage_itemPrice}"/>
+                        <p:outputLabel value="#{bundle.CreateItemLabel_itemTag}" for="itemTag" />
+                        <p:inputText id="itemTag" value="#{itemController.itemTag}" title="#{bundle.CreateItemTitle_itemTag}" required="true" requiredMessage="#{bundle.CreateItemRequiredMessage_itemTag}"/>
+                        <p:outputLabel value="#{bundle.CreateItemLabel_itemSaleNum}" for="itemSaleNum" />
+                        <p:inputText id="itemSaleNum" value="#{itemController.itemSaleNum}" title="#{bundle.CreateItemTitle_itemSaleNum}" />      
+                    </p:panelGrid>
+                   <!--！！！！需要传参-->
+                   <!--userController.current_enterprise.enterpriseName-->
+                   <p:commandButton 
+                       action="#{itemController.create_item(userController.current_enterprise.enterpriseName)}" value="#{bundle.Save}" update="display,:ItemListForm:datalist,:growl" oncomplete="handleSubmit(args,'ItemCreateDialog');" onclick="ItemCreateDialog.hide()" />
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ItemCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
